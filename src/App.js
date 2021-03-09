@@ -1,25 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import { Box } from './components/Box'
+const data = require('./city-weather.json');
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    data.map((data, index) =>
+      <Box
+        key={index}
+        name={data.name}
+        country={data.sys.country}
+        main={data.weather[0].main}
+        description={data.weather[0].description}
+        min={data.main.temp_min}
+        max={data.main.temp_max}
+        lon={data.coord.lon}
+        lat={data.coord.lat}
+      />
+    )
+  )
 }
+
+
 
 export default App;
