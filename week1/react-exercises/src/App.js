@@ -2,6 +2,7 @@ import './App.css';
 import { HobbyList } from './extremeHobbies';
 import { Guarantee } from './perfectCustomerService';
 import * as url from './assets/exercises/chat.png';
+import { Counter } from './itsHigherThan10';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Guarantee src={url.default} title='Free Shipping' description='Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum sequi minima fugit dolor, omnis, dolorem in corrupti voluptatibus est nihil reprehenderit veritatis? Quibusdam rem mollitia quae tempore impedit, vel facere!' />
       <Guarantee src={url.default} title='100% Money Back' description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus dolores blanditiis eaque hic impedit rem, illo consequuntur repellendus corporis fugit modi enim maiores veritatis, harum voluptatem ut a, recusandae non!' />
       <hr />
+      <Counter />
     </div>
   );
 }
