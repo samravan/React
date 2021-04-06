@@ -7,13 +7,15 @@ export const DogGallery = () => {
         return (
         fetch("https://dog.ceo/api/breeds/image/random")
             .then(res => res.json())
-            .then(data => setDogPhotos([...dogPhotos, data]))
+            .then(data => {setDogPhotos([...dogPhotos, data])
+                console.log(dogPhotos)
+            })
             .catch(error => console.log(error))
         )}
     return (
         <div>
             <Button onClick={getDogPhoto} />
-            {dogPhotos.message === undefined ? "Get your first dog by clicking button!" : <DogPhoto dogPhotos={dogPhotos} />}
+            {dogPhotos.message === undefined ? "Get your first dog by clicking button!" : dogPhotos.map( (dogPhoto, index) => <DogPhoto key={index} dogPhotos={dogPhoto} />)}
         </div>
     )
 }
