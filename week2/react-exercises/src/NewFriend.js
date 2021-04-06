@@ -3,16 +3,29 @@ import React, {useState} from 'react'
 export const Friend = () => {
 
     const [friend, setFriend] = useState({})
+    const [isLoading, setLoading] = useState(false);
+    const [hasError, setError] = useState(false);
+
     const getFriend = () => {
+        setLoading(true)
         return fetch("https://www.randomuser.me/api?results=1")
         .then(res => res.json())
-        .then(data => setFriend(data.results[0]))
-        .catch(err => console.log(err))
+        .then(data => {
+            setFriend(data.results[0]);
+            setLoading(false);
+        })
+        .catch(err => {
+            setError(true);
+            setLoading(false);
+            console.log(err)}
+        )
     }
 
     return (
         <div>
             <Button onClick={getFriend}/>
+            {isLoading && <h1>Loading...</h1>}
+            {hasError && <h1>Error...</h1>}
             {friend.name === undefined ? null : <FriendProfile friend={friend}/>}
         </div>
     )
@@ -22,6 +35,7 @@ export const Friend = () => {
 const FriendProfile = (props) => {
     return (
         <div>
+
             <ul>
                 <li>First name: {props.friend.name.first}</li>
                 <li>Last name: {props.friend.name.last}</li>
