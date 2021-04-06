@@ -1,10 +1,11 @@
-import {Friend} from './NewFriend'
+// import {Friend} from './NewFriend';
+import { DogGallery } from './DogGallery';
 
 function App() {
 
   return (
-    <Friend />
-
+    // <Friend />
+    <DogGallery />
 
   );
 }
