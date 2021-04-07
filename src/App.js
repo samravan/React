@@ -14,7 +14,7 @@ function App() {
     setLoading(true);
     e.preventDefault();
     setError(false);
-    const API = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=dd26c2344305b301279ca52bc815d250`;
+    const API = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=dd26c2344305b301279ca52bc815d250`;
     fetch(API)
       .then(res => res.json())
       .then(data => {
