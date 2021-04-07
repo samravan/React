@@ -1,13 +1,51 @@
-import './App.css';
+import { useState } from 'react';
+import Search from './components/Search'
 import { Box } from './components/Box'
-const data = require('./city-weather.json');
+import './App.css';
 
 function App() {
+  const [datas, setData] = useState([]);
+  const [city, setCity] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [isCity, setIsCity] = useState(true);
+  const [error, setError] = useState(false);
+
+  const onSubmit = (e) => {
+    setLoading(true);
+    e.preventDefault();
+    setError(false);
+    const API = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=dd26c2344305b301279ca52bc815d250`;
+    fetch(API)
+      .then(res => res.json())
+      .then(data => {
+        setLoading(false);
+        if (data.name) {
+          setIsCity(true);
+          setData([data, ...datas])
+        } else {
+          setIsCity(false)
+        }
+      })
+      .catch(() => {
+        setLoading(false);
+        setError(true);
+      })
+  }
+
   return (
     <>
       <h1 className='heading'>Weather</h1>
+      <Search
+        onSubmit={onSubmit}
+        city={city}
+        setCity={setCity}
+        loading={loading}
+        isCity={isCity}
+        error={error}
+      />
+
       <div>
-        {data.map((data, index) =>
+        {datas.map((data, index) =>
           <Box
             key={index}
             name={data.name}
@@ -24,7 +62,5 @@ function App() {
     </>
   )
 }
-
-
 
 export default App;
