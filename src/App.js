@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Search from './components/Search'
 import { Box } from './components/Box'
 import './App.css';
+require('dotenv').config()
 
 function App() {
   const [datas, setData] = useState([]);
