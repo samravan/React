@@ -12,10 +12,11 @@ function App() {
   const [error, setError] = useState(false);
 
   const onSubmit = (e) => {
-    setLoading(true);
     e.preventDefault();
+    setLoading(true);
     setError(false);
-    const API = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=dd26c2344305b301279ca52bc815d250`;
+    setIsCity(true);
+    const API = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`;
     fetch(API)
       .then(res => res.json())
       .then(data => {
