@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 export const Friend = () => {
 
-    const [friend, setFriend] = useState({})
+    const [friend, setFriend] = useState(undefined)
     const [isLoading, setLoading] = useState(false);
     const [hasError, setError] = useState(false);
 
@@ -26,7 +26,7 @@ export const Friend = () => {
             <Button onClick={getFriend}/>
             {isLoading && <h1>Loading...</h1>}
             {hasError && <h1>Error...</h1>}
-            {friend.name === undefined ? null : <FriendProfile friend={friend}/>}
+            {friend === undefined ? null : <FriendProfile friend={friend}/>}
         </div>
     )
 
