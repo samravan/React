@@ -10,6 +10,7 @@ export const WeatherProfile = ({data}) => {
              <p>min temp: {data.main.temp_min}</p>
             <p>max temp: {data.main.temp_max}</p>
             <p>location: {data.coord.lon}, {data.coord.lat}</p>
+            <br />
         </div>
     )
 }
