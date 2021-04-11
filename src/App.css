@@ -14,7 +14,7 @@ body {
 .searchBox {
     position: absolute;
     top: 10%;
-    left: 40%;
+    left: 60%;
     transform:  translate(-50%,50%);
     background: #2f3640;
     height: 40px;
