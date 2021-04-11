@@ -1,51 +1,50 @@
-import React, {useState} from 'react';
-
+import {useState} from 'react';
+import { Search } from './components/Search'
+import { WeatherProfile } from './components/WeatherProfile'
 
 const Weather = () => {
-    const [city, setCity] = useState();
+    const [city, setCity] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
-    const [getData, setGetData] = useState();
+    const [newData, setNewData] = useState([])
 
-    const getWeather = () => {
-        setIsLoading(true)
-        const API_KEY = process.env.REACT_APP_OPENWEATHERMAP_API_KEY;
-        return fetch(`api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`)
-                .then(res => res.json())
-                .then(data => setGetData(data))
-                .catch(error => console.log(error))
 
+    console.log(newData[0])
+    const onChange  = (event) => {
+        setCity(event.target.value);
     }
 
-    return <WeatherProfile />
-}
+    const getWeather = (event) => {
+        event.preventDefault();
+        setIsLoading(true)
+        const API_KEY = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=85a100989c55667a3bc6b17c1e3de47b`;
+        console.log(API_KEY)
+        fetch(API_KEY)
+            .then(res => res.json())
+            .then(data => {
+                setNewData([data, ...newData])
 
-const WeatherProfile = (props) => {
+                // console.log(data)
+            })
+            .catch(error => console.log(error))
+
+        }
+
     return (
-        <div className="box">
-            <Form />
-            {/* <h2>{props.name}</h2>
-            <h2>{props.country}</h2>
-            <h3>{props.weather}</h3>
-            <h4>{props.description}</h4>
-            <p>min temp: {props.temp_min}</p>
-            <p>max temp: {props.temp_max}</p>
-            <p>location: {props.lon}, {props.lat}</p> */}
+        <div>
+            <Search city={city} onChange={onChange} getWeather={getWeather}/>
+            <div>
+            {[newData].map((item, index) => (
+                console.log(item)
+                <WeatherProfile key={index} data={item} />))}
+            </div>
+
         </div>
     )
 }
 
-const Form = (props) => {
-    return (
-        <form className="searchBox" onsubmit={props.getWeather}>
-            <input className="searchInput"type="text" name="" placeholder="Search"/>
-            <button className="searchButton" type="submit" href="#" value={props.city}>
-                <i className="material-icons">
-                    search
-                </i>
-            </button>
-        </form>
-    )
-}
+
+
+
 
 export default Weather;

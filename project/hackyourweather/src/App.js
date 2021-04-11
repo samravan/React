@@ -9,9 +9,6 @@ function App() {
     <div className='container'>
       <h1>Weather App</h1>
       <Weather />
-
-        {/* {citiesList} */}
-
     </div>
 
   );
