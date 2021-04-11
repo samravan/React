@@ -67,8 +67,10 @@ body {
 }
 }
 .box {
-    position: absolute;
-    top: 25%;
-    left: 30%;
-    border: 1px solid black;
+    margin-top: 20px;
+    border: 2px solid black;
+}
+.box2 {
+    margin-top: 100px;
+
 }
