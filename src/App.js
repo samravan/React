@@ -10,28 +10,43 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [isCity, setIsCity] = useState(true);
   const [error, setError] = useState(false);
+  const [charLim, setCharLim] = useState(false)
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError(false);
-    setIsCity(true);
-    const API = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`;
-    fetch(API)
-      .then(res => res.json())
-      .then(data => {
-        setLoading(false);
-        if (data.name) {
-          setIsCity(true);
-          setData([data, ...datas])
-        } else {
-          setIsCity(false)
-        }
-      })
-      .catch(() => {
-        setLoading(false);
-        setError(true);
-      })
+
+    if (city.length > 0) {
+      setLoading(true);
+      setError(false);
+      setIsCity(true);
+      const API = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`;
+      fetch(API)
+        .then(res => res.json())
+        .then(data => {
+          setLoading(false);
+          if (data.name) {
+            setIsCity(true);
+            setData([data, ...datas])
+          } else {
+            setIsCity(false)
+          }
+        })
+        .catch(() => {
+          setLoading(false);
+          setError(true);
+        })
+        .finally(() => {
+          setCharLim(false)
+          setCity('');
+        })
+    } else {
+      setCharLim(true)
+    }
+  }
+
+  const onDelete = (e) => {
+    const newData = datas.filter(data => data.id !== parseInt(e.target.id));
+    setData(newData)
   }
 
   return (
@@ -44,12 +59,14 @@ function App() {
         loading={loading}
         isCity={isCity}
         error={error}
+        charLim={charLim}
       />
 
       <div>
         {datas.map((data, index) =>
           <Box
             key={index}
+            id={data.id}
             name={data.name}
             country={data.sys.country}
             main={data.weather[0].main}
@@ -58,6 +75,7 @@ function App() {
             max={data.main.temp_max}
             lon={data.coord.lon}
             lat={data.coord.lat}
+            onDelete={onDelete}
           />
         )}
       </div>
