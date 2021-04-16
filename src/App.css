@@ -68,9 +68,21 @@ body {
 }
 .box {
     margin-top: 20px;
+    border: 2px solid  black;
+    padding-left: 20px;
 
 }
 .box2 {
     margin-top: 100px;
+
+}
+
+.close-btn {
+    position: absolute;
+    margin-left: 43%;
+    margin-top: 10px;
+    border-radius: 50px;
+    background-color: black;
+    color: white;
 
 }

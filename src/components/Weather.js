@@ -1,18 +1,27 @@
 import {useState} from 'react';
-import { Search } from './components/Search'
-import { WeatherProfile } from './components/WeatherProfile'
+import { Search } from './Search'
+import { WeatherProfile } from './WeatherProfile'
+import CloseButton from './CloseButton'
 require("dotenv").config();
 
 const Weather = () => {
     const [city, setCity] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [hasError, setHasError] = useState(false);
-    const [newData, setNewData] = useState([])
-    const [isCity, setIsCity] = useState(true)
+    const [newData, setNewData] = useState([]);
+    const [isCity, setIsCity] = useState(true);
 
 
+    // console.log(newData)
     const onChange  = (event) => {
         setCity(event.target.value);
+        console.log(event.target.value);
+    }
+
+    const onDelete = (e) => {
+        setNewData(newData.filter((item) => item.id !== parseInt(e.target.id)))
+
+
     }
 
     const getWeather = (event) => {
@@ -27,11 +36,12 @@ const Weather = () => {
                 if(data.name) {
                     setNewData([data, ...newData]);
                     setIsCity(true);
+                    setCity('')
                 } else {
                     setIsCity(false)
                 }
             })
-            .catch(error => setHasError(true))
+            .catch(setHasError(true))
 
         }
 
@@ -47,8 +57,10 @@ const Weather = () => {
                     <WeatherProfile
                         key={index}
                         data={data}
+                        onDelete={onDelete}
                         />
                 )}
+
             </div>
         </div>
     )
