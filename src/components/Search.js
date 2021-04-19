@@ -5,7 +5,7 @@ const Search = ({ onSubmit, city, setCity, loading, isCity, error, charLim }) =>
     <>
       <form className='heading' onSubmit={onSubmit}>
         <input placeholder='Search city' type='text' value={city} onChange={(e) => setCity(e.target.value)} />
-        <input type='submit' value='Search' />
+        <input type='submit' value='Search' disabled={city.length === 0 ? true : false} />
         {loading && <span>Loading...</span>}
         {!isCity && <span>City is not found...</span>}
         {error && <span>Something is wrong!</span>}
