@@ -10,12 +10,16 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [isCity, setIsCity] = useState(true);
   const [error, setError] = useState(false);
-  const [charLim, setCharLim] = useState(false)
+  const [charLim, setCharLim] = useState(false);
+  const [repeat, setRepeat] = useState(false)
+
+  const cityIds = datas.map(item => item.id);
 
   const onSubmit = (e) => {
     e.preventDefault();
 
     if (city.length > 0) {
+      setRepeat(false)
       setLoading(true);
       setError(false);
       setIsCity(true);
@@ -25,8 +29,12 @@ function App() {
         .then(data => {
           setLoading(false);
           if (data.name) {
-            setIsCity(true);
-            setData([data, ...datas])
+            if (cityIds.some(item => item === data.id)) {
+              setRepeat(true)
+            } else {
+              setIsCity(true);
+              setData([data, ...datas])
+            }
           } else {
             setIsCity(false)
           }
@@ -60,6 +68,7 @@ function App() {
         isCity={isCity}
         error={error}
         charLim={charLim}
+        repeat={repeat}
       />
 
       <div>
