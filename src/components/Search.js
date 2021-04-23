@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react';
+import { AppContext } from './AppContext';
 
-const Search = ({ onSubmit, city, setCity, loading, isCity, error, charLim, repeat }) => {
+const Search = () => {
+  const { onSubmit, city, setCity, loading, isCity, error, charLim, repeat } = useContext(AppContext);
+
   return (
     <>
       <form className='heading' onSubmit={onSubmit}>
