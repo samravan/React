@@ -22,7 +22,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
 week1/
 week2/
 week3/
+week4/
+
+.gitignore
