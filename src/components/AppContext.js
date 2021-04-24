@@ -10,7 +10,9 @@ const Context = ({ children }) => {
   const [isCity, setIsCity] = useState(true);
   const [error, setError] = useState(false);
   const [charLim, setCharLim] = useState(false);
-  const [repeat, setRepeat] = useState(false)
+  const [repeat, setRepeat] = useState(false);
+  const [isForecastPage, setIsForecastPage] = useState(false);
+  const [forecastData, setForecastData] = useState();
 
   const cityIds = datas.map(item => item.id);
   const API = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`;
@@ -53,8 +55,26 @@ const Context = ({ children }) => {
   }
 
   const onDelete = (e) => {
-    const newData = datas.filter(data => data.id !== parseInt(e.target.id));
+    const newData = datas.filter(data => data.id !== parseInt(e.target.parentNode.parentNode.id));
     setData(newData)
+  }
+
+  const fetchForecast = (e) => {
+    setIsForecastPage(true);
+    const URL = `http://api.openweathermap.org/data/2.5/forecast?q=${e.target.id}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
+
+    const fetchData = async (URL) => {
+      const response = await fetch(URL);
+      const data = await response.json();
+      setForecastData(data.list);
+    }
+
+    fetchData(URL);
+
+  }
+
+  const backButton = () => {
+    setIsForecastPage(false);
   }
 
   return (
@@ -76,7 +96,13 @@ const Context = ({ children }) => {
         setRepeat,
         onDelete,
         onSubmit,
-        cityIds
+        cityIds,
+        isForecastPage,
+        setIsForecastPage,
+        fetchForecast,
+        backButton,
+        forecastData,
+        setForecastData
       }}>
       {children}
     </AppContext.Provider>
