@@ -2,31 +2,20 @@ import React, { useContext } from 'react'
 import { AppContext } from './AppContext';
 import {
   BrowserRouter as Router,
-  Redirect,
-  Switch,
-  Route,
-  Link
+  Link,
 } from "react-router-dom";
 
 import {
-  LineChart,
   CartesianGrid,
-  PieChart,
-  Pie,
-  Line,
   XAxis,
   YAxis,
   Tooltip,
-  ResponsiveContainer,
-  Legend,
-  Cell,
-  Bar,
-  BarChart
+  AreaChart,
+  Area
 } from "recharts";
 
 const Forecast = () => {
-  const { setIsForecastPage, backButton, forecastData, setForecastData } = useContext(AppContext);
-  console.log(forecastData);
+  const { backButton, forecastData } = useContext(AppContext);
 
   return (
     <Router>
@@ -34,13 +23,24 @@ const Forecast = () => {
         <Link to='/'><button onClick={backButton}>Back</button></Link>
       </div>
 
-      <div>
-
-        <BarChart width={150} height={40} data={forecastData}>
-          <Bar dataKey="temp" fill="#8884d8" />
-        </BarChart>
-
-      </div>
+      <AreaChart style={{ textAlign: 'center' }} width={730} height={250} data={forecastData}
+        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+        <defs>
+          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+            <stop offset="100" stopColor="#8884d8" stopOpacity={0} />
+          </linearGradient>
+          <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+            <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+          </linearGradient>
+        </defs>
+        <XAxis dataKey="date" />
+        <YAxis />
+        <CartesianGrid strokeDasharray="3 3" />
+        <Tooltip />
+        <Area type="monotone" dataKey="temp" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
+      </AreaChart>
     </Router>
 
   )

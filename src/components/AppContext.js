@@ -41,7 +41,8 @@ const Context = ({ children }) => {
             setIsCity(false)
           }
         })
-        .catch(() => {
+        .catch((e) => {
+          console.log(e)
           setLoading(false);
           setError(true);
         })
@@ -66,11 +67,17 @@ const Context = ({ children }) => {
     const fetchData = async (URL) => {
       const response = await fetch(URL);
       const data = await response.json();
-      setForecastData(data.list);
+
+      const preparedData = data.list.map((item) => {
+        return {
+          date: item.dt_txt,
+          temp: Math.round(item.main.temp_max - 273)
+        }
+      })
+
+      setForecastData(preparedData);
     }
-
     fetchData(URL);
-
   }
 
   const backButton = () => {
