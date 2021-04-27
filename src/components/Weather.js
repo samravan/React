@@ -45,7 +45,7 @@ const Weather = () => {
 
     return (
         <div>
-
+            <h1>Weather App</h1>
             <Search city={city} onChange={onChange} getWeather={getWeather}/>
             {isLoading && <h5>Is loading ....</h5>}
             {hasError && <h5>There is an error...!</h5>}
