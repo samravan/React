@@ -1,32 +1,27 @@
 import './App.css';
+
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
-} from 'react-router-dom';
+  Route
+} from "react-router-dom";
 
 import Weather from './components/Weather'
+import City from './components/City';
 
 
 
 function App() {
   return (
     <Router>
-
-      <div className='container'>
-        <Link to="/"><Weather /></Link>
-        <Link to="/cityId"> <h1>This is the City</h1> </Link>
-      </div>
       <Switch>
-        <Route path="/">
-          <Weather />
-        </Route>
-        <Route path="/cityId">
-          <h1>Hello</h1>
-        </Route>
+        <div className='container'>
+          <Route exact path="/" component={Weather} />
+          <Route path="/:cityId" component={City} />
+        </div>
       </Switch>
     </Router>
+
 
   );
 }

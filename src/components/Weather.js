@@ -2,6 +2,7 @@ import {useState} from 'react';
 import { Search } from './Search'
 import { WeatherProfile } from './WeatherProfile';
 
+
 require("dotenv").config();
 
 const Weather = () => {
@@ -12,7 +13,7 @@ const Weather = () => {
     const [isCity, setIsCity] = useState(true);
 
 
-    console.log(city)
+    // console.log(city)
     const onChange  = (event) => {
         setCity(event.target.value);
 
@@ -26,11 +27,13 @@ const Weather = () => {
         event.preventDefault();
         setIsLoading(true)
         const API_KEY = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`;
+
         fetch(API_KEY)
             .then(res => res.json())
             .then(data => {
                 setIsLoading(false);
                 setHasError(false);
+                console.log(data)
                 if(data.name && data.name.length > 1) {
                     setNewData([data, ...newData]);
                     setIsCity(true);
@@ -43,7 +46,18 @@ const Weather = () => {
 
         }
 
+        const getForcast = () => {
+            const API_KEY = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
+
+            fetch(API_KEY)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                })
+        }
+
     return (
+
         <div>
             <h1>Weather App</h1>
             <Search city={city} onChange={onChange} getWeather={getWeather}/>
@@ -58,7 +72,6 @@ const Weather = () => {
                         onDelete={onDelete}
                         />
                 )}
-
             </div>
         </div>
     )
