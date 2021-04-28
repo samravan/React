@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { AppContext } from './AppContext';
 import {
-  BrowserRouter as Router,
   Link
 } from "react-router-dom";
 
@@ -9,7 +8,6 @@ const Box = ({ data: { name, sys, weather, main, coord, id } }) => {
   const { onDelete, fetchForecast } = useContext(AppContext);
 
   return (
-    <Router>
       <div id={id} className='App box'>
         <h2>{name}, {sys.country}</h2>
         <h3>{weather[0].main}</h3>
@@ -21,12 +19,10 @@ const Box = ({ data: { name, sys, weather, main, coord, id } }) => {
           <span style={{ cursor: 'pointer', color: 'red' }}>X</span>
         </div>
 
-        <Link to={`/${id}`}>
+        <Link to={`forecast/${id}`}>
           <button id={name} onClick={fetchForecast}>Forecast 5-day</button>
         </Link>
       </div>
-
-    </Router>
   )
 }
 

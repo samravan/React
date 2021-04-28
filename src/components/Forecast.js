@@ -1,8 +1,7 @@
 import React, { useContext } from 'react'
 import { AppContext } from './AppContext';
 import {
-  BrowserRouter as Router,
-  Link,
+  Link
 } from "react-router-dom";
 
 import {
@@ -15,12 +14,12 @@ import {
 } from "recharts";
 
 const Forecast = () => {
-  const { backButton, forecastData } = useContext(AppContext);
+  const {  forecastData } = useContext(AppContext);
 
   return (
-    <Router>
+    <>
       <div>
-        <Link to='/'><button onClick={backButton}>Back</button></Link>
+        <Link to='/'><button>Back</button></Link>
       </div>
 
       <AreaChart style={{ textAlign: 'center' }} width={730} height={250} data={forecastData}
@@ -41,8 +40,7 @@ const Forecast = () => {
         <Tooltip />
         <Area type="monotone" dataKey="temp" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
       </AreaChart>
-    </Router>
-
+    </>
   )
 }
 

@@ -6,17 +6,19 @@ import './App.css';
 import Forecast from './components/Forecast';
 import {
   BrowserRouter as Router,
-  Route
+  Route,
+  Switch
 } from "react-router-dom";
 
 function App() {
-  const { datas, isForecastPage } = useContext(AppContext);
+  const { datas } = useContext(AppContext);
 
   return (
     <Router>
       <h1 className='heading'>Weather</h1>
-      {!isForecastPage ?
-        <>
+
+      <Switch>
+        <Route path='/' exact>
           <Search />
           <div>
             {datas.map((data, index) =>
@@ -26,12 +28,11 @@ function App() {
               />
             )}
           </div>
-        </>
-        : <Forecast />}
+        </Route>
 
-      <Route path="/:cityId" exact>
-        <Forecast />
-      </Route>
+       <Route path="/forecast/:cityId" exact component={Forecast} />
+       <Route path="*"><p>Error 404: page not found</p></Route>
+      </Switch>
     </Router>
 
   )

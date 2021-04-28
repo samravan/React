@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 require('dotenv').config()
 
 export const AppContext = React.createContext();
@@ -11,20 +11,27 @@ const Context = ({ children }) => {
   const [error, setError] = useState(false);
   const [charLim, setCharLim] = useState(false);
   const [repeat, setRepeat] = useState(false);
-  const [isForecastPage, setIsForecastPage] = useState(false);
   const [forecastData, setForecastData] = useState();
 
-  const cityIds = datas.map(item => item.id);
-  const API = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`;
+  useEffect(() => {
+    setData(JSON.parse(localStorage.getItem('items')))
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('items', JSON.stringify(datas));
+  },[datas])
 
   const onSubmit = (e) => {
     e.preventDefault();
-
+    
     if (city.length > 0) {
       setRepeat(false)
       setLoading(true);
       setError(false);
       setIsCity(true);
+
+      const API = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`;
+      const cityIds = datas.map(item => item.id);
 
       fetch(API)
         .then(res => res.json())
@@ -35,7 +42,8 @@ const Context = ({ children }) => {
               setRepeat(true)
             } else {
               setIsCity(true);
-              setData([data, ...datas])
+              setData([data, ...datas]);
+              console.log(datas)
             }
           } else {
             setIsCity(false)
@@ -61,7 +69,6 @@ const Context = ({ children }) => {
   }
 
   const fetchForecast = (e) => {
-    setIsForecastPage(true);
     const URL = `http://api.openweathermap.org/data/2.5/forecast?q=${e.target.id}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
 
     const fetchData = async (URL) => {
@@ -80,36 +87,21 @@ const Context = ({ children }) => {
     fetchData(URL);
   }
 
-  const backButton = () => {
-    setIsForecastPage(false);
-  }
-
   return (
     <AppContext.Provider
       value={{
         datas,
-        setData,
         city,
         setCity,
         loading,
-        setLoading,
         isCity,
-        setIsCity,
         error,
-        setError,
         charLim,
-        setCharLim,
         repeat,
-        setRepeat,
         onDelete,
         onSubmit,
-        cityIds,
-        isForecastPage,
-        setIsForecastPage,
         fetchForecast,
-        backButton,
-        forecastData,
-        setForecastData
+        forecastData
       }}>
       {children}
     </AppContext.Provider>
