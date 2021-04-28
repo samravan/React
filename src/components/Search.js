@@ -13,9 +13,9 @@ const Search = () => {
     repeat } = useContext(AppContext);
 
   return (
-    <form className='heading' onSubmit={onSubmit}>
+    <form onSubmit={onSubmit}>
       <input placeholder='Search city' type='text' value={city} onChange={(e) => setCity(e.target.value)} />
-      <input type='submit' value='Search' disabled={city.length === 0 ? true : false} />
+      <input className='submit-button' type='submit' value='Search' disabled={city.length === 0 ? true : false} />
       {loading && <span>Loading...</span>}
       {!isCity && <span>City is not found...</span>}
       {error && <span>Something is wrong!</span>}
