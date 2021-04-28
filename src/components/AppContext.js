@@ -42,7 +42,6 @@ const Context = ({ children }) => {
             } else {
               setIsCity(true);
               setData([data, ...datas]);
-              console.log(datas)
             }
           } else {
             setIsCity(false)
