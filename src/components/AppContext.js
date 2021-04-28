@@ -23,16 +23,15 @@ const Context = ({ children }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    
+    const cityIds = datas.map(item => item.id);
+    const API = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`;
+
     if (city.length > 0) {
       setRepeat(false)
       setLoading(true);
       setError(false);
       setIsCity(true);
-
-      const API = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`;
-      const cityIds = datas.map(item => item.id);
-
+      
       fetch(API)
         .then(res => res.json())
         .then(data => {
@@ -70,11 +69,11 @@ const Context = ({ children }) => {
 
   const fetchForecast = (e) => {
     const URL = `http://api.openweathermap.org/data/2.5/forecast?q=${e.target.id}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
-
+    setLoading(true);
     const fetchData = async (URL) => {
       const response = await fetch(URL);
       const data = await response.json();
-
+      
       const preparedData = data.list.map((item) => {
         return {
           date: item.dt_txt,
@@ -83,6 +82,7 @@ const Context = ({ children }) => {
       })
 
       setForecastData(preparedData);
+      setLoading(false)
     }
     fetchData(URL);
   }

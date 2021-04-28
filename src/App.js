@@ -4,6 +4,7 @@ import Box from './components/Box'
 import { AppContext } from './components/AppContext'
 import './App.css';
 import Forecast from './components/Forecast';
+import NotFoundPage from './components/NotFoundPage'
 import {
   BrowserRouter as Router,
   Route,
@@ -31,7 +32,7 @@ function App() {
         </Route>
 
        <Route path="/forecast/:cityId" exact component={Forecast} />
-       <Route path="*"><p>Error 404: page not found</p></Route>
+       <Route path="*"><NotFoundPage /></Route>
       </Switch>
     </Router>
 
