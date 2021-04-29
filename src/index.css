@@ -22,9 +22,10 @@ form {
   text-align: center;
   background-color: #c4dbf6;
   padding: 20px;
-  width: 400px;
+  max-width: 400px;
   margin: 0 auto;
-  border-radius: 0 15px;
+  border-radius: 0 0 15px 15px ;
+  ;
 }
 
 input {
@@ -97,5 +98,29 @@ button:hover {
 .chart {
   margin: auto; 
   border-radius: 5px;
+  text-align: center;
+  background-color: #E7E3D4;
 }
 
+@media only screen and (max-width: 780px){
+  .box-container {
+   flex-wrap: wrap;
+  }
+
+  .box {
+    width: 50%;
+  }
+  
+}
+
+@media only screen and (max-width: 540px){
+  .box-container {
+   flex-wrap: nowrap;
+   flex-direction: column;
+  }
+
+  .box {
+    width: 100%;
+  }
+  
+}
