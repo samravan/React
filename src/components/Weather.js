@@ -26,14 +26,13 @@ const Weather = () => {
     const getWeather = (event) => {
         event.preventDefault();
         setIsLoading(true)
-        const API_KEY = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`;
+        const API_KEY = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`;
 
         fetch(API_KEY)
             .then(res => res.json())
             .then(data => {
                 setIsLoading(false);
                 setHasError(false);
-                console.log(data)
                 if(data.name && data.name.length > 1) {
                     setNewData([data, ...newData]);
                     setIsCity(true);
@@ -46,15 +45,17 @@ const Weather = () => {
 
         }
 
-        const getForcast = () => {
-            const API_KEY = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
+        // const cityHandler = () => {
+        //     const API_KEY2 = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
+        //     console.log(city)
+        //     console.log(API_KEY2)
+        //     fetch(API_KEY2)
+        //         .then(res => res.json())
+        //         .then(data => {
+        //             console.log(data)
+        //         })
+        // }
 
-            fetch(API_KEY)
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data)
-                })
-        }
 
     return (
 
@@ -76,9 +77,6 @@ const Weather = () => {
         </div>
     )
 }
-
-
-
 
 
 export default Weather;

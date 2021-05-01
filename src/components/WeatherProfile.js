@@ -1,14 +1,38 @@
+import { useState , useEffect} from 'react';
 import CloseButton from './CloseButton'
 import {
     Link
   } from "react-router-dom";
+  import City from './City';
+
 
 
 
 export const WeatherProfile = ({data, onDelete}) => {
-    console.log(data.id)
+    const [newData, setNewDate] = useState([]);
+    const [temp, setTemp] = useState([])
+
+    useEffect(() => {
+
+    },[])
+
     const cityHandler = () => {
-        console.log(data.name)
+
+        const getForecast = () => {
+            const API_KEY = `https://api.openweathermap.org/data/2.5/forecast?q=${data.name}&units=metric&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
+
+            fetch(API_KEY)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data.list[0].dt_txt)
+                    newData.map((data2, index) => <City
+                                        key={ index }
+                                        data={data2}
+                                        />)
+                })
+        }
+
+        return getForecast();
     }
     return (
 
