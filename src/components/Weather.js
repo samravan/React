@@ -45,17 +45,6 @@ const Weather = () => {
 
         }
 
-        // const cityHandler = () => {
-        //     const API_KEY2 = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
-        //     console.log(city)
-        //     console.log(API_KEY2)
-        //     fetch(API_KEY2)
-        //         .then(res => res.json())
-        //         .then(data => {
-        //             console.log(data)
-        //         })
-        // }
-
 
     return (
 
