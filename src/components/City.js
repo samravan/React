@@ -1,4 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect,} from 'react';
+import { useHistory } from "react-router-dom";
+
 import {
     ResponsiveContainer,
     AreaChart,
@@ -9,7 +11,7 @@ import {
 
 const City = (props) => {
     const cityIds = props.match.params.cityId;
-    console.log(props)
+    const history = useHistory();
     const [rawData, setRawData] = useState([]);
 
     useEffect(() => {
@@ -28,33 +30,39 @@ const City = (props) => {
                         }
                     })
                     setRawData(allData);
-                    console.log(allData)
+
                 })
 
+        }
+
+        const handleHistory = () => {
+            history.push("/")
         }
 
     return (
         <div>
 
-            <button>Back</button>
-            <ResponsiveContainer width="100%" height={400}>
-                <AreaChart data={rawData} stroke="#82ca9d">
-                <Area dataKey="temp" />
-                <XAxis dataKey="date" />
-                <YAxis dateKey="temp"/>
-                <defs>
-                    <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0" stopColor="#82ca9d" stopOpacity={0.8}/>
-                    <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
-                    </linearGradient>
-                    <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0" stopColor="#82ca9d" stopOpacity={0.8}/>
-                    <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
-                    </linearGradient>
-                </defs>
+            <button onClick={handleHistory}>Back</button>
 
-                <CartesianGrid strokeDasharray="3 3" />
-                <Tooltip />
+            <ResponsiveContainer className="recharts" width="100%" height={400} >
+                <AreaChart data={rawData} stroke="#82ca9d"
+                    margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
+                    >
+                    <defs>
+                        <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#82ca9d" stopOpacity={0.4}/>
+                            <stop offset="75%" stopColor="#82ca9d" stopOpacity={0.05}/>
+                        </linearGradient>
+                    </defs>
+                    <Area dataKey="temp" stroke="#82ca9d" fill={"url(#colorPv)"}/>
+
+                    <XAxis dataKey="date" axisLine={false} tickLine={false}  />
+
+                    <YAxis dateKey="temp" axisLine={false} tickLine={false} tickCount={6} />
+
+                    <Tooltip />
+
+                    <CartesianGrid strokeDasharray="3 3" opacity={0.6} vertical={false}/>
 
                 </AreaChart>
             </ResponsiveContainer>

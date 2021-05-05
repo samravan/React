@@ -2,7 +2,8 @@
 
 body {
     /* background-image: linear-gradient(to right , #cb2d3e , #ef473a); */
-    background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+    background-image: white;
+    /* background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12); */
 }
 
 .container {
@@ -58,6 +59,11 @@ body {
     transition: 0.4s;
     line-height: 40px;
     width: 0px;
+
+}
+
+.recharts {
+    margin-top: 15%;
 
 }
 
