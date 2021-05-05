@@ -29,7 +29,6 @@ const City = (props) => {
                     })
                     setRawData(allData);
                 })
-
         }
         getForecast();
     }, [cityIds])
