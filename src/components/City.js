@@ -15,9 +15,7 @@ const City = (props) => {
     const [rawData, setRawData] = useState([]);
 
     useEffect(() => {
-      getForecast();
-    }, [])
-    const getForecast = () => {
+        const getForecast = () => {
             const API_KEY = `https://api.openweathermap.org/data/2.5/forecast?id=${cityIds}&units=metric&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
 
             fetch(API_KEY)
@@ -30,10 +28,12 @@ const City = (props) => {
                         }
                     })
                     setRawData(allData);
-
                 })
 
         }
+        getForecast();
+    }, [cityIds])
+
 
         const handleHistory = () => {
             history.push("/")
