@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { AppContext } from './AppContext';
 import {
   Link
@@ -14,8 +14,13 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-const Forecast = () => {
-  const {  forecastData, loading } = useContext(AppContext);
+const Forecast = (props) => {
+  const {  forecastData, loading, fetchForecast } = useContext(AppContext);
+  const cityId = props.match.params.cityId;
+
+ useEffect(() => {
+    fetchForecast(cityId);
+ }, []);
 
   return (
     <>

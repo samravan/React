@@ -66,8 +66,8 @@ const Context = ({ children }) => {
     setData(newData)
   }
 
-  const fetchForecast = (e) => {
-    const URL = `https://api.openweathermap.org/data/2.5/forecast?q=${e.target.id}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
+  const fetchForecast = (id) => {
+    const URL = `https://api.openweathermap.org/data/2.5/forecast?id=${id}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
     setLoading(true);
     const fetchData = async (URL) => {
       const response = await fetch(URL);

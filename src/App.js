@@ -33,7 +33,7 @@ function App() {
           </div>
         </Route>
 
-       <Route path="/forecast/:cityId" exact component={Forecast} />
+       <Route path="/:cityId" exact component={Forecast} />
        <Route path="*"><NotFoundPage /></Route>
       </Switch>
     </Router>

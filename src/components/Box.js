@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 
 const Box = ({ data: { name, sys, weather, main, coord, id } }) => {
-  const { onDelete, fetchForecast } = useContext(AppContext);
+  const { onDelete } = useContext(AppContext);
 
   return (
       <div id={id} className='box'>
@@ -19,8 +19,8 @@ const Box = ({ data: { name, sys, weather, main, coord, id } }) => {
           <span className='deleteButton' style={{ cursor: 'pointer', color: 'red' }}>X</span>
         </div>
 
-        <Link to={`forecast/${id}`}>
-          <button id={name} onClick={fetchForecast}>Forecast 5-day</button>
+        <Link to={`/${id}`}>
+          <button>Forecast 5-day</button>
         </Link>
       </div>
   )
