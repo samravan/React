@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { AppContext } from './AppContext';
 import {
   Link
@@ -15,17 +15,13 @@ import {
 } from "recharts";
 
 const Forecast = (props) => {
-  const {  forecastData, loading, fetchForecast } = useContext(AppContext);
+  const {  forecastData, loading, setParam } = useContext(AppContext);
   const cityId = props.match.params.cityId;
-
- useEffect(() => {
-    fetchForecast(cityId);
- }, []);
-
+  
   return (
     <>
     
-      <div>
+      <div onLoad={setParam(cityId)}>
         <Link to='/'><button className='backButton'>Back</button></Link>
       </div>
       {loading ? <h3>Loading</h3> :

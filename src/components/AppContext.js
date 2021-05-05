@@ -12,6 +12,11 @@ const Context = ({ children }) => {
   const [charLim, setCharLim] = useState(false);
   const [repeat, setRepeat] = useState(false);
   const [forecastData, setForecastData] = useState();
+  const [param, setParam] = useState(null);
+
+  useEffect(() => {
+    fetchForecast(param);
+  },[param])
 
   useEffect(() => {
     setData(JSON.parse(localStorage.getItem('items')))
@@ -67,23 +72,27 @@ const Context = ({ children }) => {
   }
 
   const fetchForecast = (id) => {
-    const URL = `https://api.openweathermap.org/data/2.5/forecast?id=${id}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
-    setLoading(true);
-    const fetchData = async (URL) => {
-      const response = await fetch(URL);
-      const data = await response.json();
-      
-      const preparedData = data.list.map((item) => {
-        return {
-          date: item.dt_txt,
-          temp: Math.round(item.main.temp_max - 273)
-        }
-      })
 
-      setForecastData(preparedData);
-      setLoading(false)
-    }
-    fetchData(URL);
+    if(id){
+      const URL = `https://api.openweathermap.org/data/2.5/forecast?id=${id}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
+      setLoading(true);
+
+      const fetchData = async (URL) => {
+        const response = await fetch(URL);
+        const data = await response.json();
+        
+        const preparedData = data.list.map((item) => {
+          return {
+            date: item.dt_txt,
+            temp: Math.round(item.main.temp_max - 273)
+          }
+        })
+  
+        setForecastData(preparedData);
+        setLoading(false)
+      }
+      fetchData(URL);
+    }  
   }
 
   return (
@@ -100,7 +109,8 @@ const Context = ({ children }) => {
         onDelete,
         onSubmit,
         fetchForecast,
-        forecastData
+        forecastData,
+        setParam
       }}>
       {children}
     </AppContext.Provider>
