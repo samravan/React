@@ -22,7 +22,7 @@ export const Friend = () => {
     }
 
     return (
-        <div>
+        <div className="friend">
             <Button onClick={getFriend}/>
             {isLoading && <h1>Loading...</h1>}
             {hasError && <h1>Error...</h1>}

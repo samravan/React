@@ -1,13 +1,17 @@
 import {Friend} from './NewFriend';
-// import { DogGallery } from './DogGallery';
-// import {RandomJoke} from './RandomJoke'
+import { DogGallery } from './DogGallery';
+import {RandomJoke} from './RandomJoke'
 
 function App() {
 
   return (
-    <Friend />
-    // <DogGallery />
-    // <RandomJoke />
+    <div className="container">
+      <Friend />
+      <DogGallery />
+      <RandomJoke />
+    </div>
+
+    //
 
   );
 }

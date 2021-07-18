@@ -16,12 +16,14 @@ export const RandomJoke = () => {
 
     return (
         <Joke joke={joke}/>
+
     )
 }
 
 const Joke = (props) =>{
     return (
-        <div>
+        <div className="randomJokes">
+            <p>Daily joke:</p>
             <p>{props.joke.setup}</p>
             <p>{props.joke.punchline}</p>
         </div>

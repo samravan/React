@@ -23,8 +23,8 @@ export const DogGallery = () => {
             })
         )}
     return (
-        <div>
-            <Button onClick={getDogPhoto} />
+        <div className="dogGallery">
+            <Button className="dogButton" onClick={getDogPhoto} />
             {isLoading && <h1>Loading...</h1>}
             {hasError && <h1>Error...</h1>}
             {dogPhotos.length === 0  ? "Get your first dog by clicking button!" : dogPhotos.map( (dogPhoto, index) => <DogPhoto key={index} dogPhotos={dogPhoto} />)}
